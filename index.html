@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leo | Schnauzer White Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --champagne: #f7e7ce;
+            --dusty-rose: #e2b4bd;
+            --sage: #b9c6ae;
+            --soft-white: #faf9f6;
+            --text-dark: #3a3a3a;
+            --glass: rgba(255, 255, 255, 0.45);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, var(--soft-white), var(--champagne), var(--dusty-rose));
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- Estética de Fondo Interactivo --- */
+        #bokeh-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .bokeh {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.2;
+            filter: blur(40px);
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            from { transform: translateY(100vh) scale(1); }
+            to { transform: translateY(-10vh) scale(1.5); }
+        }
+
+        /* --- Navegación --- */
+        nav {
+            padding: 30px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.1);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 10%;
+            margin-top: 50px;
+        }
+
+        .hero-card {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 30px;
+            padding: 60px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+            max-width: 1100px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1.2s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero-text h1 span {
+            font-style: italic;
+            font-weight: 400;
+            color: var(--sage);
+        }
+
+        .hero-image {
+            position: relative;
+            height: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .hero-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* --- Galería --- */
+        .gallery {
+            padding: 100px 10%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .photo-card {
+            height: 400px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(20%);
+            transition: all 0.5s ease;
+        }
+
+        .photo-card:hover img {
+            filter: grayscale(0%);
+            transform: scale(1.1);
+        }
+
+        /* --- Footer --- */
+        footer {
+            padding: 80px 10%;
+            text-align: center;
+            background: rgba(255,255,255,0.2);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+        }
+
+        /* --- Botones --- */
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            border: 1px solid var(--text-dark);
+            background: transparent;
+            color: var(--text-dark);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background: var(--text-dark);
+            color: white;
+            padding: 15px 50px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-card { grid-template-columns: 1fr; padding: 30px; }
+            .hero-text h1 { font-size: 3rem; }
+            .hero-image { height: 350px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="bokeh-container"></div>
+
+    <nav>
+        <div class="logo">LEO</div>
+        <div style="font-size: 0.8rem; letter-spacing: 1px;">WHITE SCHNAUZER • 2026</div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-card">
+            <div class="hero-text">
+                <h1>Hola, <br>soy <span>Leo</span>.</h1>
+                <p>Explora la elegancia y el carácter de un Schnauzer blanco. Estilo puro, lealtad incondicional y una presencia que no pasa desapercibida.</p>
+                <a href="#gallery" class="btn">Ver Galería</a>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1593134257782-e89567b7718a?auto=format&fit=crop&q=80&w=1000" alt="Leo el Schnauzer Blanco">
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery" id="gallery">
+        <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&q=80&w=800" alt="Detalle Schnauzer">
+        </div>
+        <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&q=80&w=800" alt="Leo en el exterior">
+        </div>
+        <div class="photo-card">
+            <img src="https://images.unsplash.com/photo-1506755855567-92ff770e8d30?auto=format&fit=crop&q=80&w=800" alt="Mirada de Leo">
+        </div>
+    </section>
+
+    <footer>
+        <p>Leo — La esencia del Schnauzer Blanco</p>
+    </footer>
+
+    <script>
+        // Generar partículas de bokeh aleatorias
+        const container = document.getElementById('bokeh-container');
+        for (let i = 0; i < 15; i++) {
+            const bokeh = document.createElement('div');
+            bokeh.className = 'bokeh';
+            const size = Math.random() * 200 + 100;
+            bokeh.style.width = `${size}px`;
+            bokeh.style.height = `${size}px`;
+            bokeh.style.left = `${Math.random() * 100}vw`;
+            bokeh.style.animationDelay = `${Math.random() * 10}s`;
+            bokeh.style.animationDuration = `${Math.random() * 10 + 15}s`;
+            container.appendChild(bokeh);
+        }
+
+        // Efecto parallax suave en la imagen hero al mover el ratón
+        document.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+            const img = document.querySelector('.hero-image img');
+            img.style.transform = `scale(1.1) translate(${moveX}px, ${moveY}px)`;
+        });
+    </script>
+</body>
+</html>
